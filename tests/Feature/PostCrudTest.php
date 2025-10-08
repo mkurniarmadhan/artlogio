@@ -2,12 +2,18 @@
 
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
 
 
 uses(RefreshDatabase::class);
+beforeEach(function () {
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user); // sudah otomatis login
+});
+
 
 it('lihat semua post', function () {
     Post::factory()->count(3)->create();
@@ -30,7 +36,8 @@ it('Buat post baru', function () {
         'is_active' => true,
     ];
 
-    $this->post('/posts', $data);
+    $this->post('/posts', $data)
+        ->assertRedirect('/posts');
 
     $this->assertDatabaseHas('posts', ['title' => 'Buat post']);
 });
@@ -52,10 +59,41 @@ it('Ubah post', function () {
     $this->assertDatabaseHas('posts', ['title' => $post->title]);
 });
 
-it('Hapus post', function () {
+
+
+
+
+it('hapus semesntara', function () {
+
+
     $post = Post::factory()->create();
 
     $this->delete("/posts/{$post->id}")
-    ;
+        ->assertRedirect('/posts');
+
+    $this->assertSoftDeleted('posts', ['id' => $post->id]);
+});
+
+
+
+it('kembali data yang di hapus', function () {
+    $post = Post::factory()->create();
+    $post->delete();
+
+    $this->post("/posts/{$post->id}/restore")
+        ->assertRedirect('/posts');
+
+    $this->assertDatabaseHas('posts', ['id' => $post->id, 'deleted_at' => null]);
+
+});
+
+
+it('hapus data permanen', function () {
+    $post = Post::factory()->create();
+    $post->delete();
+
+    $this->delete("/posts/{$post->id}/force-delete")
+        ->assertRedirect('/posts');
+
     $this->assertDatabaseMissing('posts', ['id' => $post->id]);
 });
