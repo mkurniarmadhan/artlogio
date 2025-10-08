@@ -14,21 +14,23 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts = Post::latest()->paginate(5);
 
-        return $posts;
+        return  view('cms.posts.index',compact('posts'));
     }
 
     public function create()
     {
 
-        return 'create';
-
+        return  view('cms.posts.create');
+        
     }
 
     public function store(StorePostRequest $request)
     {
         Post::create($request->validated());
+
+        return to_route('posts.index');
     }
 
     public function show(Post $post)
@@ -41,7 +43,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
 
-        return $post;
+
+        return  view('cms.posts.edit',compact('post'));
 
     }
 
