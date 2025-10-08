@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
 
     // PostResource
     Route::resource('posts', PostController::class);
+    Route::post('/posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');
+    Route::delete('/posts/{id}/force-delete', [PostController::class, 'forceDelete'])->name('posts.forceDelete');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

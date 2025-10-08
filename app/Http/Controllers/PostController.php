@@ -16,14 +16,14 @@ class PostController extends Controller
     {
         $posts = Post::latest()->paginate(5);
 
-        return  view('cms.posts.index',compact('posts'));
+        return view('cms.posts.index', compact('posts'));
     }
 
     public function create()
     {
 
-        return  view('cms.posts.create');
-        
+        return view('cms.posts.create');
+
     }
 
     public function store(StorePostRequest $request)
@@ -44,7 +44,7 @@ class PostController extends Controller
     {
 
 
-        return  view('cms.posts.edit',compact('post'));
+        return view('cms.posts.edit', compact('post'));
 
     }
 
@@ -52,6 +52,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         $post->update($request->validated());
+        return redirect()->route('posts.index');
 
     }
 
@@ -59,5 +60,23 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+        return redirect()->route('posts.index');
+    }
+
+
+    public function restore($id)
+    {
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->restore();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function forceDelete($id)
+    {
+        $post = Post::onlyTrashed()->findOrFail($id);
+        $post->forceDelete();
+
+        return redirect()->route('posts.index');
     }
 }
