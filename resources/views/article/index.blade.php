@@ -17,9 +17,9 @@
                                     style="object-fit: cover;">
                                 <div class="overlay">
                                     <div class="mb-1" style="font-size: 13px;">
-                                        <a class="text-white" href="">{{ $post->title }}</a>
+                                        <a class="text-white" href="{{ route('article.show', $post) }}">{{ $post->title }}</a>
                                         <span class="px-1 text-white">/</span>
-                                        <a class="text-white" href="">{{ $post->published_at?->format('Y') }}</a>
+                                        <a class="text-white" href="">{{ $post->published_at?->translatedFormat('Y') }}</a>
                                     </div>
                                     <a class="h4 m-0 text-white"
                                         href="{{ route('article.show', $post) }}">{{ $post->judul }}</a>
@@ -53,9 +53,9 @@
                         style="width: 100px; height: 100px; object-fit: cover;">
                     <div class="w-100 d-flex flex-column justify-content-center bg-light px-3" style="height: 100px;">
                         <div class="mb-1" style="font-size: 13px;">
-                            <a href="">{{ $post->title }}</a>
+                            <a href="{{ route('article.show', $post) }}">{{ $post->title }}</a>
                             <span class="px-1">/</span>
-                            <span>{{ $post->published_at->format('d F Y') }}</span>
+                            <span>{{ $post->published_at->translatedFormat('d F Y') }}</span>
                         </div>
                         <a class="h6 m-0" href="{{ route('article.show', $post) }}">{{ $post->title }}</a>
                     </div>
