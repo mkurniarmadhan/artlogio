@@ -1,12 +1,17 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('/', fn() => to_route('article.index'))->name('home');
+
+Route::resource('article', ArticleController::class)->only('index', 'show')
+    ->parameters(['article' => 'post']);
+;
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -14,8 +19,6 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
-
-
     // PostResource
     Route::resource('posts', PostController::class);
     Route::post('/posts/{id}/restore', [PostController::class, 'restore'])->name('posts.restore');

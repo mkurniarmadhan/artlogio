@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
 
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'title',
         'content',
@@ -21,4 +21,9 @@ class Post extends Model
         'is_active' => 'boolean',
         'published_at' => 'datetime'
     ];
+
+    public function scopePublished($query)
+    {
+        return $query->where('is_active', true);
+    }
 }
