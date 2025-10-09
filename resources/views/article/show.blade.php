@@ -21,7 +21,7 @@
             <div class="mb-3">
                 <a href="">{{ $post->title }}</a>
                 <span class="px-1">/</span>
-                <span>{{ $post->published_at->format('d F Y') }}</span>
+                <span>{{ $post->published_at->translatedFormat('d F Y') }}</span>
             </div>
             <div>
                 <h3 class="mb-3">{{ $post->title }}</h3>
