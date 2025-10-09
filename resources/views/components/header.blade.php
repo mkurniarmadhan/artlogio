@@ -14,14 +14,14 @@
                 <div class="search-header">
                     Histories
                 </div>
-                
-                
+
+
                 <div class="search-item">
                     <a href="#">
                         <div class="search-icon bg-primary mr-3 text-white">
                             <i class="fas fa-laptop"></i>
                         </div>
-                    Buat Post
+                        Buat Post
                     </a>
                 </div>
             </div>
@@ -51,8 +51,8 @@
 
 
                 </div>
-              
-                
+
+
             </div>
         </li>
         <li class="dropdown"><a href="#" data-toggle="dropdown"
@@ -65,10 +65,13 @@
                 <a href="{{ route('profile.edit') }}" class="dropdown-item has-icon">
                     <i class="fas fa-cog"></i> Pengaturan
                 </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item has-icon text-danger">
-                    <i class="fas fa-sign-out-alt"></i> Keluar
-                </a>
+                <form action="{{ route('logout') }}" method="post" class="dropdown-item">
+
+                    @csrf
+                    <button class="btn btn-sm btn-danger w-100"> <i class="fas fa-sign-out-alt"></i> Keluar</button>
+                </form>
+
+
             </div>
         </li>
     </ul>
