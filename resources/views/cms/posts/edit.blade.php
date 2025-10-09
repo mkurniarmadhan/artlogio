@@ -18,14 +18,14 @@
 
             <div class="section-body">
                 <h2 class="section-title">Edit Post</h2>
-           
-                
+
+
 
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Ubah  Post</h4>
+                                <h4>Edit Post</h4>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('posts.update', $post) }}" method="post">
@@ -44,7 +44,7 @@
                                         <label
                                             class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <textarea class="form-control" name="content">{{ $post->content }}</textarea>
+                                            <textarea class="form-control" name="content" rows="4" cols="50">{{ $post->content }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row mb-4">
@@ -53,7 +53,7 @@
                                         <div class="col-sm-12 col-md-7">
                                             <select class="form-control selectric" name="is_active">
                                                 <option value="0" {{ $post->is_active == 0 ? 'selected' : '' }}>
-                                                    Pending</option>
+                                                    Draf</option>
                                                 <option value="1" {{ $post->is_active == 1 ? 'selected' : '' }}>
                                                     Publish</option>
                                             </select>
@@ -62,7 +62,7 @@
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                         <div class="col-sm-12 col-md-7">
-                                            <button class="btn btn-primary" type="submit">Ubah Post</button>
+                                            <button class="btn btn-primary" type="submit">Edit Post</button>
                                         </div>
                                     </div>
                                 </form>
