@@ -19,7 +19,7 @@
                                     <div class="mb-1" style="font-size: 13px;">
                                         <a class="text-white" href="">{{ $post->title }}</a>
                                         <span class="px-1 text-white">/</span>
-                                        <a class="text-white" href="">{{ $post->published_at->format('Y') }}</a>
+                                        <a class="text-white" href="">{{ $post->published_at?->format('Y') }}</a>
                                     </div>
                                     <a class="h4 m-0 text-white"
                                         href="{{ route('article.show', $post) }}">{{ $post->judul }}</a>
