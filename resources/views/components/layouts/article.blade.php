@@ -70,16 +70,15 @@
                 </div>
 
                 <div class="input-group ml-auto" style="width: 100%; max-width: 300px;">
-                   <form>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control"
-                                                placeholder="Cari berdasarkan title" name="q" id="searchInput"
-                                                value="{{ request('q') }}">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
+                    <form action="{{ route('article.index') }}">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Cari berdasarkan title"
+                                name="q" id="searchInput" value="{{ request('q') }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -108,7 +107,7 @@
                     <!-- Newsletter Start -->
                     <div class="pb-3">
                         <div class="bg-light py-2 px-4 mb-3">
-                            <h3 class="m-0">Ikuti Kamu</h3>
+                            <h3 class="m-0">Ikuti Kami</h3>
                         </div>
                         <div class="bg-light text-center p-4 mb-3">
                             <p>Dapatkan informasi terupdate dari kami</p>
@@ -162,7 +161,8 @@
 
                     <a class="text-secondary mb-2" href="#"><i
                             class="fa fa-angle-right text-dark mr-2"></i>Privacy & policy</a>
-                    <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right text-dark mr-2"></i>Terms
+                    <a class="text-secondary mb-2" href="#"><i
+                            class="fa fa-angle-right text-dark mr-2"></i>Terms
                         & conditions</a>
 
                 </div>
