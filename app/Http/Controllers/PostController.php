@@ -14,9 +14,36 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $posts = Post::latest()->paginate(5);
+        $query = $request->input('q');
 
-        return view('cms.posts.index', compact('posts'));
+        $status = $request->input('status');
+
+        $posts = Post::query();
+        if ($query):
+            $posts->where('title', 'like', '%' . $query . '%');
+        endif;
+
+        switch ($status) {
+            case 'draft':
+                $posts->where('is_active', 0);
+                break;
+            case 'publish':
+                $posts->where('is_active', 1);
+                break;
+            case 'sampah':
+                $posts->onlyTrashed();
+                break;
+            case 'all':
+                $posts->withTrashed();
+                break;
+            default:
+                $posts->withTrashed();
+                break;
+        }
+
+        $posts = $posts->latest()->paginate(5);
+
+        return view('cms.posts.index', compact('posts', 'query', 'status'));
     }
 
     public function create()

@@ -30,17 +30,30 @@
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
-                                    <select class="form-control selectric">
-                                        <option>All</option>
-                                        <option>Draf</option>
-                                        <option>Publish</option>
-                                        <option>Sampah</option>
-                                    </select>
+                                    <form id="filterForm" method="GET" action="{{ route('posts.index') }}">
+                                        <select id="statusFilter" name="status" class="form-control "
+                                            onchange="this.form.submit()">
+                                            <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>
+                                                All
+                                            </option>
+                                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>
+                                                Draf
+                                            </option>
+                                            <option value="publish"
+                                                {{ request('status') == 'publish' ? 'selected' : '' }}>
+                                                Publish</option>
+                                            <option value="sampah"
+                                                {{ request('status') == 'sampah' ? 'selected' : '' }}>
+                                                Sampah</option>
+                                        </select>
+                                    </form>
                                 </div>
                                 <div class="float-right">
                                     <form>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search">
+                                            <input type="text" class="form-control"
+                                                placeholder="Cari berdasarkan title" name="q" id="searchInput"
+                                                value="{{ request('q') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -62,15 +75,44 @@
 
                                         @forelse ($posts as $post)
                                             <tr>
-
                                                 <td>{{ $post->title }}
                                                     <div class="table-links">
-                                                        <a href="#">View</a>
-                                                        <div class="bullet"></div>
-                                                        <a href="{{ route('posts.edit', $post) }}">Edit</a>
-                                                        <div class="bullet"></div>
-                                                        <a href="#" class="text-danger">Trash</a>
+
+                                                        @if ($status =='sampah')
+                                                            <form method="POST"
+                                                                action="{{ route('posts.restore', $post->id) }}"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                <button type="submit"
+                                                                    class="btn btn-info btn-sm">Restore</button>
+                                                            </form>
+
+                                                            <form method="POST"
+                                                                action="{{ route('posts.forceDelete', $post->id) }}"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-sm">Delete
+                                                                    Permanen</button>
+                                                            </form>
+                                                        @else
+                                                            <a href="{{ route('posts.edit', $post) }}"
+                                                                class="btn btn-sm btn-warning">Edit</a>
+                                                            <form method="POST"
+                                                                action="{{ route('posts.destroy', $post) }}"
+                                                                onsubmit="return confirm('Hapus post ini?')"
+                                                                class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-danger">Hapus</button>
+                                                            </form>
+                                                        @endif
+
+
                                                     </div>
+
                                                 </td>
                                                 <td>
                                                     {{ str()->limit($post->content, 50) }}
@@ -85,6 +127,9 @@
                                             </tr>
 
                                         @empty
+                                            <tr>
+                                                <td colspan="4" class="text center">Post tidak ditemukan</td>
+                                            </tr>
                                         @endforelse
                                     </table>
                                 </div>
