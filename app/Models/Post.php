@@ -22,6 +22,7 @@ class Post extends Model
         'published_at' => 'datetime'
     ];
 
+
     public function scopePublished($query)
     {
         return $query->where('is_active', true);

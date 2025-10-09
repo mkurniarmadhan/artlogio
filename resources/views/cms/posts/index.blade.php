@@ -118,7 +118,7 @@
                                                     {{ str()->limit($post->content, 50) }}
                                                 </td>
 
-                                                <td>{{ $post->published_at->format('D M Y h:i:s') }}</td>
+                                                <td>{{ $post->published_at?->format('D M Y h:i:s') }}</td>
                                                 <td>
                                                     <div
                                                         class="badge badge-{{ $post->is_active ? 'primary' : 'warning' }}">
