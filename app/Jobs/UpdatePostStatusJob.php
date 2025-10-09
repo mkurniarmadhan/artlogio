@@ -36,8 +36,9 @@ class UpdatePostStatusJob implements ShouldQueue
     public function failed(\Throwable $exception): void
     {
 
-        Log::error("Gagal menjalakan job untuk ID :{$this->post->id}");
-        Log::error("Error:$exception->getMessage()");
+        Log::channel('post_jobs')->error('Gagal publish job ID: ' . $this->post->id, [
+            'error' => $exception->getMessage(),
+        ]);
 
     }
 }
